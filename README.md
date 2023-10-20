@@ -1,7 +1,7 @@
-# Image Import Generator
+# Env Sample Generator
 
 ## Features
 
-Right click a directory in the explorer to quickly generate a index file that includes all images within the directory
+Right click a .env in the explorer to quickly generate a sample .env for that file
 <br>
 <img src="./demo.gif"/>
