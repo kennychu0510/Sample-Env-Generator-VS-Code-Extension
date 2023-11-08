@@ -22,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
         return
       }
 			try {
-				generateSampleEnv(selectedFile.path)
+				generateSampleEnv(selectedFile.fsPath)
 				vscode.window.showInformationMessage('.env sample file created successfully!');
 			} catch (error) {
 				console.error(error);
