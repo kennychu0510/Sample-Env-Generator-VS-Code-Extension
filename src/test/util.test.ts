@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { extractContent, getFileName } from '../utils';
+import { extractContent, extractContentForZodSchema, getFileName } from '../utils';
 
 const env1 = 'src/test/.env'
 const emptyEnvFilePath = 'src/test/.env.empty'
@@ -27,5 +27,13 @@ describe('empty .env to return empty string', () => {
 describe('env with weird symnbols', () => {
   test('extract all the fields correctly', () => {
     expect(extractContent(emptyEnvFilePath)).toContain('')
+  })
+})
+
+describe('generate zod file', () => {
+  test('extract all contents correctly', () => {
+    expect(extractContentForZodSchema(env1)).toMatchSnapshot()
+    expect(extractContentForZodSchema(env2)).toMatchSnapshot()
+    expect(extractContentForZodSchema(emptyEnvFilePath)).toMatchSnapshot()
   })
 })

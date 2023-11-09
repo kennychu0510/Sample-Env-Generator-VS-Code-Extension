@@ -19,9 +19,22 @@ export function extractContent(filePath: string) {
   const content = fs.readFileSync(filePath, { encoding: 'utf-8' });
   const lines = content.split('\n');
   const outputContent: string[] = lines.map((item) => {
-    const match = item.match(regex);
+    const match = RegExp(regex).exec(item);
     if (match) {
-      return match.at(1) + '=' ?? '';
+      return match.at(1) + '=';
+    }
+    return '';
+  });
+  return outputContent.join('\n');
+}
+
+export function extractContentForZodSchema(filePath: string) {
+  const content = fs.readFileSync(filePath, { encoding: 'utf-8' });
+  const lines = content.split('\n');
+  const outputContent: string[] = lines.map((item) => {
+    const match = RegExp(regex).exec(item);
+    if (match) {
+      return '\t' + match.at(1) + ': z.string(),'
     }
     return '';
   });
@@ -29,6 +42,20 @@ export function extractContent(filePath: string) {
 }
 
 export function generateSampleEnv(filePath: string) {
-  const content = extractContent(filePath);
+  const content = extractContentForZodSchema(filePath);
   generateFile(filePath, content);
 }
+
+export function generateZodSchema(filePath: string) {
+  const fileName = path.basename(filePath)
+  const content = extractContentForZodSchema(filePath);
+  const zodFileContent = zodSchemaStart + content + zodSchemaEnd
+  fs.writeFile(filePath.replace(fileName, '') + 'env.ts', zodFileContent, (err) => {
+    if (err) {
+      throw new Error(err.message);
+    }
+  });
+}
+
+const zodSchemaStart = `import z from 'zod'\n\nconst envSchema = z.object({\n`
+const zodSchemaEnd = `\n})\n\nexport const ENV = envSchema.parse(process.env)`
