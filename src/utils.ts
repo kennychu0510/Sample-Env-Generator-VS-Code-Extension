@@ -34,7 +34,10 @@ export function extractContentForZodSchema(filePath: string) {
   const outputContent: string[] = lines.map((item) => {
     const match = RegExp(regex).exec(item);
     if (match) {
-      return '\t' + match.at(1) + ': z.string(),'
+      const value = item.replace(match.at(1) + '=', '')
+      const isNumber = !isNaN(Number(value))
+      const zodType = isNumber ? 'z.number()' : 'z.string()'
+      return '\t' + match.at(1) + `: ${zodType},`
     }
     return '';
   });
