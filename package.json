@@ -7,7 +7,7 @@
     "url": "https://github.com/kennychu0510/Sample-Env-Generator-VS-Code-Extension"
   },
   "icon": "images/icon.png",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.82.0"
   },
@@ -21,6 +21,10 @@
       {
         "command": "sample-env-generator.generateSampleEnv",
         "title": "Generate Sample Env"
+      },
+      {
+        "command": "sample-env-generator.generateZodSchema",
+        "title": "Generate Zod Schema for Env"
       }
     ],
     "menus": {
@@ -28,6 +32,11 @@
         {
           "when": "resourceFilename =~ /^\\.env/ && resourceScheme == 'file'",
           "command": "sample-env-generator.generateSampleEnv",
+          "group": "2_workspace"
+        },
+        {
+          "when": "resourceFilename =~ /^\\.env/ && resourceScheme == 'file'",
+          "command": "sample-env-generator.generateZodSchema",
           "group": "2_workspace"
         }
       ]

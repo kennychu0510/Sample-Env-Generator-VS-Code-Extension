@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`generate zod file with type correctly > extract all contents correctly 1`] = `
+"	API_KEY: z.string(),
+	DATABASE_HOST: z.string(),
+	DATABASE_PORT: z.number(),
+	DATABASE_NAME: z.string(),
+	DATABASE_USER: z.string(),
+	DATABASE_PASSWORD: z.string(),"
+`;
+
+exports[`generate zod file with type correctly > extract all contents correctly 2`] = `
+"	API_KEY: z.string(),
+	DATABASE_HOST: z.string(),
+	DATABASE_PORT: z.number(),
+	DATABASE_NAME: z.string(),
+	DATABASE_USER: z.string(),
+	DATABASE_PASSWORD: z.string(),"
+`;
+
+exports[`generate zod file with type correctly > extract all contents correctly 3`] = `""`;
