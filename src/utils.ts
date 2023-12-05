@@ -35,7 +35,7 @@ export function extractContentForZodSchema(filePath: string) {
     const match = RegExp(regex).exec(item);
     if (match) {
       const value = item.replace(match.at(1) + '=', '')
-      const isNumber = !isNaN(Number(value))
+      const isNumber = !isNaN(Number(value)) && value.length > 0
       const zodType = isNumber ? 'z.number()' : 'z.string()'
       return '\t' + match.at(1) + `: ${zodType},`
     }
@@ -45,7 +45,7 @@ export function extractContentForZodSchema(filePath: string) {
 }
 
 export function generateSampleEnv(filePath: string) {
-  const content = extractContentForZodSchema(filePath);
+  const content = extractContent(filePath);
   generateFile(filePath, content);
 }
 
