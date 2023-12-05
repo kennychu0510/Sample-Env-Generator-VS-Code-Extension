@@ -1,5 +1,31 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`generate env file correctly > extract all contents correctly 1`] = `
+"API_KEY=
+DATABASE_HOST=
+DATABASE_PORT=
+DATABASE_NAME=
+DATABASE_USER=
+DATABASE_PASSWORD="
+`;
+
+exports[`generate env file correctly > extract all contents correctly 2`] = `
+"API_KEY=
+DATABASE_HOST=
+DATABASE_PORT=
+DATABASE_NAME=
+DATABASE_USER=
+DATABASE_PASSWORD="
+`;
+
+exports[`generate env file correctly > extract all contents correctly 3`] = `""`;
+
+exports[`generate env file correctly > extract all contents correctly 4`] = `
+"number=
+string=
+empty="
+`;
+
 exports[`generate zod file with type correctly > extract all contents correctly 1`] = `
 "	API_KEY: z.string(),
 	DATABASE_HOST: z.string(),
@@ -19,3 +45,9 @@ exports[`generate zod file with type correctly > extract all contents correctly 
 `;
 
 exports[`generate zod file with type correctly > extract all contents correctly 3`] = `""`;
+
+exports[`generate zod file with type correctly > extract all contents correctly 4`] = `
+"	number: z.number(),
+	string: z.string(),
+	empty: z.string(),"
+`;
