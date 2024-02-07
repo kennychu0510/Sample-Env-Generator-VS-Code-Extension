@@ -16,13 +16,13 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.commands.registerCommand('sample-env-generator.generateSampleEnv', async (selectedFile: vscode.Uri | undefined) => {
-      console.log(selectedFile?.path)
+      console.log(selectedFile?.path);
       if (!selectedFile) {
         vscode.window.showErrorMessage('no env file selected');
-        return
+        return;
       }
 			try {
-				generateSampleEnv(selectedFile.fsPath)
+				generateSampleEnv(selectedFile.fsPath);
 				vscode.window.showInformationMessage('.env sample file created successfully!');
 			} catch (error) {
 				console.error(error);
@@ -34,13 +34,13 @@ export function activate(context: vscode.ExtensionContext) {
   );
   context.subscriptions.push(
     vscode.commands.registerCommand('sample-env-generator.generateZodSchema', async (selectedFile: vscode.Uri | undefined) => {
-      console.log(selectedFile?.path)
+      console.log(selectedFile?.path);
       if (!selectedFile) {
         vscode.window.showErrorMessage('no env file selected');
-        return
+        return;
       }
 			try {
-				generateZodSchema(selectedFile.fsPath)
+				generateZodSchema(selectedFile.fsPath);
 				vscode.window.showInformationMessage('Zod schema created successfully!');
 			} catch (error) {
 				console.error(error);

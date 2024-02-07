@@ -34,10 +34,10 @@ export function extractContentForZodSchema(filePath: string) {
   const outputContent: string[] = lines.map((item) => {
     const match = RegExp(regex).exec(item);
     if (match) {
-      const value = item.replace(match.at(1) + '=', '')
-      const isNumber = !isNaN(Number(value)) && value.length > 0
-      const zodType = isNumber ? 'z.number()' : 'z.string()'
-      return '\t' + match.at(1) + `: ${zodType},`
+      const value = item.replace(match.at(1) + '=', '');
+      const isNumber = !isNaN(Number(value)) && value.length > 0;
+      const zodType = isNumber ? 'z.number()' : 'z.string()';
+      return '\t' + match.at(1) + `: ${zodType},`;
     }
     return '';
   });
@@ -50,9 +50,9 @@ export function generateSampleEnv(filePath: string) {
 }
 
 export function generateZodSchema(filePath: string) {
-  const fileName = path.basename(filePath)
+  const fileName = path.basename(filePath);
   const content = extractContentForZodSchema(filePath);
-  const zodFileContent = zodSchemaStart + content + zodSchemaEnd
+  const zodFileContent = zodSchemaStart + content + zodSchemaEnd;
   fs.writeFile(filePath.replace(fileName, '') + 'env.ts', zodFileContent, (err) => {
     if (err) {
       throw new Error(err.message);
@@ -60,5 +60,5 @@ export function generateZodSchema(filePath: string) {
   });
 }
 
-const zodSchemaStart = `import z from 'zod'\n\nconst envSchema = z.object({\n`
-const zodSchemaEnd = `\n})\n\nexport const ENV = envSchema.parse(process.env)`
+const zodSchemaStart = `import z from 'zod'\n\nconst envSchema = z.object({\n`;
+const zodSchemaEnd = `\n})\n\nexport const ENV = envSchema.parse(process.env)`;
