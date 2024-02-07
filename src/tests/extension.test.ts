@@ -42,6 +42,19 @@ suite('Sample Env Generator', () => {
     const generatedFile = fs.readFileSync(path.join(workspaceFolder, '.env.empty.sample'), 'utf-8');
     assert.strictEqual(validationFile, generatedFile);
   });
+
+  test('Scenario 4: Generate .env', async () => {
+    await cleanUpSampleEnvFiles();
+    assert.ok(fs.existsSync(path.join(workspaceFolder, '.env')));
+
+    vscode.commands.executeCommand('sample-env-generator.generateSampleEnv');
+    await sleep();
+    assert.ok(fs.existsSync(path.join(workspaceFolder, '.env.sample')));
+    const validationFile = fs.readFileSync(path.join(validationFolder, '.env.sample'), 'utf-8');
+    const generatedFile = fs.readFileSync(path.join(workspaceFolder, '.env.sample'), 'utf-8');
+    assert.strictEqual(validationFile, generatedFile);
+  });
+
 }); 
 
 function sleep(ms = 200) {

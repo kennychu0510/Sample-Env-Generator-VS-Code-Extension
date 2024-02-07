@@ -2,6 +2,8 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { generateSampleEnv, generateZodSchema } from './utils';
+import * as path from 'path';
+import * as fs from 'fs';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -16,20 +18,25 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.commands.registerCommand('sample-env-generator.generateSampleEnv', async (selectedFile: vscode.Uri | undefined) => {
-      console.log(selectedFile?.path);
       if (!selectedFile) {
-        vscode.window.showErrorMessage('no env file selected');
-        return;
+        //get root directory path
+        const rootDir = vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders[0] ? vscode.workspace.workspaceFolders[0].uri.fsPath : null;
+        if (rootDir && fs.existsSync(path.join(rootDir, '.env'))) {
+          selectedFile = vscode.Uri.file(path.join(rootDir, '.env'));
+        } else {
+          vscode.window.showErrorMessage('No .env found in current directory');
+          return;
+        }
       }
-			try {
-				generateSampleEnv(selectedFile.fsPath);
-				vscode.window.showInformationMessage('.env sample file created successfully!');
-			} catch (error) {
-				console.error(error);
-				if (error instanceof Error) {
-					vscode.window.showErrorMessage(error.message);
-				}
-			}
+      try {
+        generateSampleEnv(selectedFile.fsPath);
+        vscode.window.showInformationMessage('.env sample file created successfully!');
+      } catch (error) {
+        console.error(error);
+        if (error instanceof Error) {
+          vscode.window.showErrorMessage(error.message);
+        }
+      }
     })
   );
   context.subscriptions.push(
@@ -39,19 +46,18 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.showErrorMessage('no env file selected');
         return;
       }
-			try {
-				generateZodSchema(selectedFile.fsPath);
-				vscode.window.showInformationMessage('Zod schema created successfully!');
-			} catch (error) {
-				console.error(error);
-				if (error instanceof Error) {
-					vscode.window.showErrorMessage(error.message);
-				}
-			}
+      try {
+        generateZodSchema(selectedFile.fsPath);
+        vscode.window.showInformationMessage('Zod schema created successfully!');
+      } catch (error) {
+        console.error(error);
+        if (error instanceof Error) {
+          vscode.window.showErrorMessage(error.message);
+        }
+      }
     })
   );
 }
 
 // This method is called when your extension is deactivated
 export function deactivate() {}
-
